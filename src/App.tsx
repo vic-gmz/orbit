@@ -72,7 +72,7 @@ function App() {
                 <p>
                   It includes an initial setup with Vite, React, Convex, and
                   Better Auth for authentication and authorization using
-                  email/password and Google Sign-In. Everything else is up to
+                  email/password authentication. Everything else is up to
                   you to build.
                 </p>
                 <p>

@@ -2,7 +2,7 @@
 
 ## Stack
 
-React 19 + TypeScript 6 + Vite 8 (client) · Convex 1.34 (backend/DB, **self-hosted via Docker**) · Better Auth (email/password + Google) · Tailwind CSS v4
+React 19 + TypeScript 6 + Vite 8 (client) · Convex 1.34 (backend/DB, **self-hosted via Docker**) · Better Auth (email/password) · Tailwind CSS v4
 
 ## Dev commands
 

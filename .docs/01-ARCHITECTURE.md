@@ -7,7 +7,7 @@
 | Framework | React 19 + TypeScript ~6.0 |
 | Bundler | Vite 8 |
 | Backend / DB | Convex 1.34 (self-hosted) |
-| Auth | Better Auth 1.5 + `@convex-dev/better-auth` (email/password + Google) |
+| Auth | Better Auth 1.5 + `@convex-dev/better-auth` (email/password) |
 | CSS | Tailwind CSS v4 (utility only, no design effort) |
 | CSS Tooling | `@tailwindcss/vite` plugin (no PostCSS, no config file) |
 
