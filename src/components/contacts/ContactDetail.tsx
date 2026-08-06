@@ -3,6 +3,7 @@ import { api } from "../../../convex/_generated/api";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import type { ContactId } from "../../types";
 import { formatDate } from "../../lib/format";
+import TagManager from "../tags/TagManager";
 
 export default function ContactDetail() {
   const { id } = useParams();
@@ -19,10 +20,6 @@ export default function ContactDetail() {
     api.companies.get,
     contact?.companyId ? { id: contact.companyId } : "skip",
   );
-  const tags = useQuery(
-    api.tags.listByContact,
-    contact ? { contactId: contact._id } : "skip",
-  );
 
   const remove = useMutation(api.contacts.remove);
   const navigate = useNavigate();
@@ -34,7 +31,7 @@ export default function ContactDetail() {
     navigate("/contacts");
   };
 
-  if (contact === undefined || tags === undefined) {
+  if (contact === undefined) {
     return <p>Loading...</p>;
   }
 
@@ -133,19 +130,12 @@ export default function ContactDetail() {
         </div>
       )}
 
-      {tags.length > 0 && (
-        <div className="flex flex-wrap gap-1">
-          {tags.map((t) => (
-            <span
-              key={t._id}
-              className="rounded-full px-2 py-1 text-xs"
-              style={{ backgroundColor: `${t.color}33`, color: t.color }}
-            >
-              {t.name}
-            </span>
-          ))}
+      <div>
+        <h2 className="text-lg">Tags</h2>
+        <div className="mt-1">
+          <TagManager contactId={contact._id} />
         </div>
-      )}
+      </div>
 
       {contact.personalProjects && (
         <div>
