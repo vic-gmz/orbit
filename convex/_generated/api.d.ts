@@ -8,8 +8,14 @@
  * @module
  */
 
+import type * as achievements from "../achievements.js";
 import type * as auth from "../auth.js";
+import type * as companies from "../companies.js";
+import type * as contacts from "../contacts.js";
+import type * as goals from "../goals.js";
 import type * as http from "../http.js";
+import type * as interactions from "../interactions.js";
+import type * as tags from "../tags.js";
 
 import type {
   ApiFromModules,
@@ -18,8 +24,14 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  achievements: typeof achievements;
   auth: typeof auth;
+  companies: typeof companies;
+  contacts: typeof contacts;
+  goals: typeof goals;
   http: typeof http;
+  interactions: typeof interactions;
+  tags: typeof tags;
 }>;
 
 /**

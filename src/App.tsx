@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthGuard from "./components/auth/AuthGuard";
+import ErrorBoundary from "./components/common/ErrorBoundary";
 import Layout from "./components/layout/Layout";
 import DashboardPage from "./components/dashboard/DashboardPage";
 import CompaniesPage from "./components/companies/CompaniesPage";
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
           { index: true, element: <DashboardPage /> },
           { path: "companies", element: <CompaniesPage /> },
           { path: "companies/new", element: <CompanyForm /> },
+          { path: "companies/:id/edit", element: <CompanyForm /> },
           { path: "companies/:id", element: <CompanyDetail /> },
           { path: "contacts", element: <ContactsPage /> },
           { path: "contacts/new", element: <ContactForm /> },
@@ -33,7 +35,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <ErrorBoundary>
+      <RouterProvider router={router} />
+    </ErrorBoundary>
+  );
 }
 
 export default App;
