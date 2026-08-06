@@ -1,9 +1,11 @@
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import type { ContactId } from "../../types";
+import type { AchievementType, ContactId } from "../../types";
 import { formatDate } from "../../lib/format";
 import TagManager from "../tags/TagManager";
+import InteractionForm from "../interactions/InteractionForm";
+import InteractionTimeline from "../interactions/InteractionTimeline";
 
 export default function ContactDetail() {
   const { id } = useParams();
@@ -20,6 +22,7 @@ export default function ContactDetail() {
     api.companies.get,
     contact?.companyId ? { id: contact.companyId } : "skip",
   );
+  const interactions = useQuery(api.interactions.listByContact, { contactId });
 
   const remove = useMutation(api.contacts.remove);
   const navigate = useNavigate();
@@ -31,7 +34,13 @@ export default function ContactDetail() {
     navigate("/contacts");
   };
 
-  if (contact === undefined) {
+  const handleInteractionCreated = (achievements: AchievementType[]) => {
+    if (achievements.length > 0) {
+      window.alert(`Achievements unlocked: ${achievements.join(", ")}`);
+    }
+  };
+
+  if (contact === undefined || interactions === undefined) {
     return <p>Loading...</p>;
   }
 
@@ -150,6 +159,23 @@ export default function ContactDetail() {
           <p className="whitespace-pre-wrap">{contact.notes}</p>
         </div>
       )}
+
+      <div>
+        <h2 className="text-lg">Log interaction</h2>
+        <div className="mt-1">
+          <InteractionForm
+            contactId={contact._id}
+            onCreated={handleInteractionCreated}
+          />
+        </div>
+      </div>
+
+      <div>
+        <h2 className="text-lg">Interactions</h2>
+        <div className="mt-1">
+          <InteractionTimeline interactions={interactions} />
+        </div>
+      </div>
 
       <p className="text-sm text-gray-500">
         {contact.interactionCount} interactions · last{" "}
