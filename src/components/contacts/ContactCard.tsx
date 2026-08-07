@@ -3,6 +3,7 @@ import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import type { Contact } from "../../types";
 import { formatRelativeDate } from "../../lib/format";
+import AuraAvatar from "../ui/AuraAvatar";
 
 export default function ContactCard({
   contact,
@@ -18,13 +19,6 @@ export default function ContactCard({
       : "skip",
   );
 
-  const initials = contact.name
-    .split(" ")
-    .map((p) => p[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
-
   const meta = [contact.role, companyName].filter(Boolean).join(" · ");
 
   return (
@@ -32,17 +26,11 @@ export default function ContactCard({
       to={`/contacts/${contact._id}`}
       className="flex items-center gap-3 rounded border p-3"
     >
-      {avatarUrl ? (
-        <img
-          src={avatarUrl}
-          alt=""
-          className="h-10 w-10 shrink-0 rounded-full object-cover"
-        />
-      ) : (
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-200 text-sm">
-          {initials}
-        </div>
-      )}
+      <AuraAvatar
+        src={avatarUrl}
+        name={contact.name}
+        interactionCount={contact.interactionCount}
+      />
       <div className="min-w-0 flex-1">
         <p className="font-medium">{contact.name}</p>
         {meta && (

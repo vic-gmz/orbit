@@ -3,3 +3,17 @@
 body {
   margin: 0;
 }
+
+@keyframes aura-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 2px var(--aura-color));
+  }
+  50% {
+    filter: drop-shadow(0 0 6px var(--aura-color));
+  }
+}
+
+.aura-glow {
+  animation: aura-glow 2.5s ease-in-out infinite;
+}

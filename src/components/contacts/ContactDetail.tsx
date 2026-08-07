@@ -8,6 +8,7 @@ import { toast } from "../../lib/toast";
 import TagManager from "../tags/TagManager";
 import InteractionForm from "../interactions/InteractionForm";
 import InteractionTimeline from "../interactions/InteractionTimeline";
+import AuraAvatar from "../ui/AuraAvatar";
 
 export default function ContactDetail() {
   const { id } = useParams();
@@ -58,13 +59,6 @@ export default function ContactDetail() {
     );
   }
 
-  const initials = contact.name
-    .split(" ")
-    .map((p) => p[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
-
   return (
     <div className="flex max-w-2xl flex-col gap-4">
       <Link to="/contacts" className="text-sm text-gray-500">
@@ -72,17 +66,12 @@ export default function ContactDetail() {
       </Link>
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-4">
-          {avatarUrl ? (
-            <img
-              src={avatarUrl}
-              alt=""
-              className="h-16 w-16 rounded-full object-cover"
-            />
-          ) : (
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-200 text-lg">
-              {initials}
-            </div>
-          )}
+          <AuraAvatar
+            src={avatarUrl}
+            name={contact.name}
+            interactionCount={contact.interactionCount}
+            size={64}
+          />
           <div>
             <h1 className="text-xl">{contact.name}</h1>
             {contact.role && <p className="text-gray-500">{contact.role}</p>}

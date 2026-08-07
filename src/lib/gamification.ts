@@ -46,6 +46,14 @@ export function getLevel(totalInteractions: number): {
   if (totalInteractions >= 100) return { level: 5, title: "Platinum", emoji: "💎" };
   if (totalInteractions >= 50) return { level: 4, title: "Gold", emoji: "🥇" };
   if (totalInteractions >= 25) return { level: 3, title: "Silver", emoji: "🥈" };
-  if (totalInteractions >= 5) return { level: 2, title: "Bronze", emoji: "🥉" };
+  if (totalInteractions >= 5)   return { level: 2, title: "Bronze", emoji: "🥉" };
   return { level: 1, title: "Rookie", emoji: "🌱" };
+}
+
+export function getAuraColor(interactionCount: number): string {
+  if (interactionCount === 0) return "#9CA3AF";
+  if (interactionCount < 2) return "#3B82F6";
+  if (interactionCount < 6) return "#8B5CF6";
+  if (interactionCount < 16) return "#F59E0B";
+  return "#10B981";
 }

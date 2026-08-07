@@ -127,14 +127,14 @@ async function checkAndUnlock(ctx, userId, contactId) {
 
 ## Aura / Orbit Indicator
 
-Around contact avatar, an SVG ring. Color based on `interactionCount`:
+Around every contact avatar, a **complete** glowing SVG ring. All contacts get the ring and the same subtle glow animation; only the ring **color** varies with `interactionCount`:
 
 | Interactions | Color | Hex |
 |---|---|---|
-| 0 | None (no ring) | — |
-| 1 | Gray | `#9CA3AF` |
-| 2–5 | Blue | `#3B82F6` |
-| 6–15 | Purple | `#8B5CF6` |
-| 16+ | Gold (with subtle glow animation) | `#F59E0B` |
+| 0 | Gray | `#9CA3AF` |
+| 1 | Blue | `#3B82F6` |
+| 2–5 | Purple | `#8B5CF6` |
+| 6–15 | Gold | `#F59E0B` |
+| 16+ | Emerald | `#10B981` |
 
-The aura ring is rendered as an SVG circle with `strokeDasharray` and `strokeDashoffset` animated on mount for a "charging" effect.
+The ring is rendered as an SVG circle with `drop-shadow` glow animated via a `@keyframes aura-glow` pulse (defined in `src/index.css`, class `.aura-glow`). Color is set per contact via the `--aura-color` CSS variable.

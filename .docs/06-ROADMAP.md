@@ -163,9 +163,9 @@
 ## Phase 4: Polish + Edge Cases
 
 ### 4.1 — Aura/orbit indicator on ContactCard
-- **Actions**: Add SVG ring around avatar based on interactionCount thresholds
+- **Actions**: Add a complete glowing SVG ring around every contact avatar; color varies by interactionCount (see `05-GAMIFICATION.md`)
 - **Files**: `src/components/contacts/ContactCard.tsx`
-- **Success**: Visual ring appears with correct color
+- **Success**: Every contact shows a complete glowing ring in the correct color
 
 ### 4.2 — Empty states across all pages
 - **Actions**: Add friendly empty state messages with links to create first item

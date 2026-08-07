@@ -93,11 +93,12 @@ All routes wrapped in `<AuthGuard>` which checks `useConvexAuth()` and redirects
 ### `<ContactCard>`
 - Props: `contact: Contact`
 - Shows: avatar (or initials), name, role, company name, last interaction relative date
-- **Aura indicator**: rotating SVG ring around avatar
-  - 0-1 interactions: gray
-  - 2-5: blue
-  - 6-15: purple
-  - 16+: gold
+- **Aura indicator**: complete glowing SVG ring around every avatar (see `05-GAMIFICATION.md`)
+  - 0 interactions: gray
+  - 1: blue
+  - 2-5: purple
+  - 6-15: gold
+  - 16+: emerald
 
 ### `<ContactForm>`
 - Create/edit form
