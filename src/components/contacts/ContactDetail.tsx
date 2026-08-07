@@ -3,6 +3,8 @@ import { api } from "../../../convex/_generated/api";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import type { AchievementType, ContactId } from "../../types";
 import { formatDate } from "../../lib/format";
+import { ACHIEVEMENTS } from "../../lib/gamification";
+import { toast } from "../../lib/toast";
 import TagManager from "../tags/TagManager";
 import InteractionForm from "../interactions/InteractionForm";
 import InteractionTimeline from "../interactions/InteractionTimeline";
@@ -35,8 +37,9 @@ export default function ContactDetail() {
   };
 
   const handleInteractionCreated = (achievements: AchievementType[]) => {
-    if (achievements.length > 0) {
-      window.alert(`Achievements unlocked: ${achievements.join(", ")}`);
+    for (const type of achievements) {
+      const def = ACHIEVEMENTS.find((a) => a.id === type);
+      if (def) toast(def.toast);
     }
   };
 

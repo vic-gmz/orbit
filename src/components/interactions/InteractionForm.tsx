@@ -3,26 +3,10 @@ import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import type { AchievementType, ContactId, InteractionType } from "../../types";
 import { fromDateInputValue, toDateInputValue } from "../../lib/format";
-
-const TYPES: InteractionType[] = [
-  "chat",
-  "virtual_coffee",
-  "in_person",
-  "call",
-  "email",
-  "event",
-  "linkedin_dm",
-];
-
-const TYPE_LABELS: Record<InteractionType, string> = {
-  chat: "Chat",
-  virtual_coffee: "Virtual coffee",
-  in_person: "In person",
-  call: "Call",
-  email: "Email",
-  event: "Event",
-  linkedin_dm: "LinkedIn DM",
-};
+import {
+  INTERACTION_TYPE_LABELS,
+  INTERACTION_TYPES,
+} from "../../lib/interactionTypes";
 
 export default function InteractionForm({
   contactId,
@@ -66,9 +50,9 @@ export default function InteractionForm({
           onChange={(e) => setType(e.target.value as InteractionType)}
           className="rounded border px-2 py-1 text-sm"
         >
-          {TYPES.map((t) => (
+          {INTERACTION_TYPES.map((t) => (
             <option key={t} value={t}>
-              {TYPE_LABELS[t]}
+              {INTERACTION_TYPE_LABELS[t]}
             </option>
           ))}
         </select>

@@ -1,15 +1,6 @@
 import type { Interaction, InteractionId } from "../../types";
 import { formatDate, formatRelativeDate } from "../../lib/format";
-
-const TYPE_LABELS: Record<Interaction["type"], string> = {
-  chat: "Chat",
-  virtual_coffee: "Virtual coffee",
-  in_person: "In person",
-  call: "Call",
-  email: "Email",
-  event: "Event",
-  linkedin_dm: "LinkedIn DM",
-};
+import { INTERACTION_TYPE_LABELS } from "../../lib/interactionTypes";
 
 export default function InteractionItem({
   interaction,
@@ -25,7 +16,7 @@ export default function InteractionItem({
     <div className="flex flex-col gap-1 rounded border p-3">
       <div className="flex items-center justify-between">
         <span className="text-sm font-medium">
-          {TYPE_LABELS[interaction.type]}
+          {INTERACTION_TYPE_LABELS[interaction.type]}
         </span>
         <span
           className="text-xs text-gray-500"
