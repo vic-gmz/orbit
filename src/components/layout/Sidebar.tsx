@@ -14,11 +14,13 @@ const links = [
 
 export default function Sidebar() {
   const contacts = useQuery(api.contacts.list, {});
+  const pendingFollowUps = useQuery(api.interactions.pendingFollowUps, {});
   const { current: streak, loading: streakLoading } = useStreak();
 
   const totalInteractions =
     contacts?.reduce((sum, c) => sum + c.interactionCount, 0) ?? 0;
   const level = getLevel(totalInteractions);
+  const pendingCount = pendingFollowUps?.length ?? 0;
 
   return (
     <aside className="flex w-52 shrink-0 flex-col border-r p-4">
@@ -33,7 +35,14 @@ export default function Sidebar() {
               isActive ? "rounded bg-gray-200 px-3 py-2" : "rounded px-3 py-2"
             }
           >
-            {link.label}
+            <span className="flex items-center justify-between">
+              {link.label}
+              {link.to === "/" && pendingCount > 0 && (
+                <span className="rounded-full bg-red-500 px-2 py-0.5 text-xs text-white">
+                  {pendingCount}
+                </span>
+              )}
+            </span>
           </NavLink>
         ))}
       </nav>
