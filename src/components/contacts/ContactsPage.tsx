@@ -4,6 +4,7 @@ import { api } from "../../../convex/_generated/api";
 import { Link } from "react-router-dom";
 import type { CompanyId, TagId } from "../../types";
 import ContactCard from "./ContactCard";
+import EmptyState from "../ui/EmptyState";
 
 export default function ContactsPage() {
   const [search, setSearch] = useState("");
@@ -81,14 +82,17 @@ export default function ContactsPage() {
 
       {contacts.length === 0 ? (
         filtering ? (
-          <p>No results for your filters.</p>
+          <EmptyState
+            title="No results for your filters."
+            message="Try a different search or clear the filters."
+          />
         ) : (
-          <p>
-            No contacts yet.{" "}
-            <Link to="/contacts/new" className="underline">
-              Add your first one!
-            </Link>
-          </p>
+          <EmptyState
+            title="No contacts yet."
+            message="Start building your professional network."
+            actionLabel="Add your first one!"
+            actionTo="/contacts/new"
+          />
         )
       ) : (
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">

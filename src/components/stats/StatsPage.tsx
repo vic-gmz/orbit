@@ -4,6 +4,7 @@ import GrowthChart from "./GrowthChart";
 import WeeklyChart from "./WeeklyChart";
 import StreakHistory from "./StreakHistory";
 import BadgeGrid from "./BadgeGrid";
+import EmptyState from "../ui/EmptyState";
 
 export default function StatsPage() {
   const contacts = useQuery(api.contacts.list, {});
@@ -22,6 +23,20 @@ export default function StatsPage() {
     achievements === undefined
   ) {
     return <p>Loading...</p>;
+  }
+
+  if (contacts.length === 0) {
+    return (
+      <div className="flex flex-col gap-4">
+        <h1 className="text-xl">Stats</h1>
+        <EmptyState
+          title="No data yet."
+          message="Add contacts and log interactions to see your stats."
+          actionLabel="Add a contact"
+          actionTo="/contacts/new"
+        />
+      </div>
+    );
   }
 
   const totalInteractions = contacts.reduce(

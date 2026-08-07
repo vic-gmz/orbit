@@ -3,6 +3,7 @@ import { api } from "../../../convex/_generated/api";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import type { CompanyId } from "../../types";
 import ContactCard from "../contacts/ContactCard";
+import EmptyState from "../ui/EmptyState";
 
 export default function CompanyDetail() {
   const { id } = useParams();
@@ -87,7 +88,12 @@ export default function CompanyDetail() {
           </Link>
         </div>
         {contacts.length === 0 ? (
-          <p className="mt-2">No contacts at this company yet.</p>
+          <EmptyState
+            title="No contacts at this company yet."
+            message="Add someone you know at this company."
+            actionLabel="+ Add contact"
+            actionTo={`/contacts/new?companyId=${company._id}`}
+          />
         ) : (
           <ul className="mt-2 flex flex-col gap-2">
             {contacts.map((c) => (

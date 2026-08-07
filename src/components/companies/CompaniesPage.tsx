@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Link } from "react-router-dom";
 import type { Company } from "../../types";
+import EmptyState from "../ui/EmptyState";
 
 function TrackedToggle({ company }: { company: Company }) {
   const toggleTracked = useMutation(api.companies.toggleTracked);
@@ -84,14 +85,17 @@ export default function CompaniesPage() {
 
       {filtered!.length === 0 ? (
         search || trackedOnly ? (
-          <p>No results for "{search}".</p>
+          <EmptyState
+            title={`No results for "${search}".`}
+            message="Try a different search or clear the filters."
+          />
         ) : (
-          <p>
-            No companies yet.{" "}
-            <Link to="/companies/new" className="underline">
-              Create your first one!
-            </Link>
-          </p>
+          <EmptyState
+            title="No companies yet."
+            message="Track the companies you're building relationships with."
+            actionLabel="Create your first one!"
+            actionTo="/companies/new"
+          />
         )
       ) : (
         <ul className="flex flex-col gap-2">

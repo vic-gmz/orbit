@@ -1,10 +1,10 @@
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import { Link } from "react-router-dom";
 import WeeklyGoalWidget from "./WeeklyGoalWidget";
 import StreakDisplay from "./StreakDisplay";
 import RecentInteractions from "./RecentInteractions";
 import PendingFollowUps from "./PendingFollowUps";
+import EmptyState from "../ui/EmptyState";
 
 export default function DashboardPage() {
   const contacts = useQuery(api.contacts.list, {});
@@ -15,12 +15,14 @@ export default function DashboardPage() {
 
   if (contacts.length === 0) {
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-4">
         <h1 className="text-xl">Dashboard</h1>
-        <p>No contacts yet. Add your first one to start networking!</p>
-        <Link to="/contacts/new" className="text-blue-600">
-          Add a contact
-        </Link>
+        <EmptyState
+          title="No contacts yet."
+          message="Add your first contact to start networking."
+          actionLabel="Add a contact"
+          actionTo="/contacts/new"
+        />
       </div>
     );
   }

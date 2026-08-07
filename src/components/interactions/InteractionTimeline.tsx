@@ -15,7 +15,9 @@ export default function InteractionTimeline({
   return (
     <div className="flex flex-col gap-2">
       {sorted.length === 0 ? (
-        <p className="text-sm text-gray-500">No interactions yet</p>
+        <p className="text-sm text-gray-500">
+          No interactions yet. Log your first one with the form above.
+        </p>
       ) : (
         sorted.map((interaction) => (
           <InteractionItem
