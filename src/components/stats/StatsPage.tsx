@@ -22,13 +22,18 @@ export default function StatsPage() {
     weekly === undefined ||
     achievements === undefined
   ) {
-    return <p>Loading...</p>;
+    return <p className="text-sm text-muted">Loading…</p>;
   }
 
   if (contacts.length === 0) {
     return (
-      <div className="flex flex-col gap-4">
-        <h1 className="text-xl">Stats</h1>
+      <div className="stagger flex flex-col gap-5">
+        <div>
+          <h1 className="page-title">Stats</h1>
+          <p className="mt-1 text-sm text-muted">
+            Your orbit, measured in warm moments.
+          </p>
+        </div>
         <EmptyState
           title="No data yet."
           message="Add contacts and log interactions to see your stats."
@@ -54,36 +59,43 @@ export default function StatsPage() {
   ];
 
   return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-xl">Stats</h1>
+    <div className="stagger flex flex-col gap-6">
+      <div>
+        <h1 className="page-title">Stats</h1>
+        <p className="mt-1 text-sm text-muted">
+          Your orbit, measured in warm moments.
+        </p>
+      </div>
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         {cards.map((card) => (
-          <div key={card.label} className="rounded border p-4 text-center">
-            <p className="text-sm text-gray-500">{card.label}</p>
-            <p className="text-2xl">{card.value}</p>
+          <div key={card.label} className="card p-5 text-center">
+            <p className="text-sm text-muted">{card.label}</p>
+            <p className="font-display text-3xl font-semibold text-ink">
+              {card.value}
+            </p>
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <section className="rounded border p-4">
-          <h2 className="mb-2 font-medium">Contacts over time</h2>
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        <section className="card p-5">
+          <h2 className="section-title mb-3">Contacts over time</h2>
           <GrowthChart data={growth} />
         </section>
-        <section className="rounded border p-4">
-          <h2 className="mb-2 font-medium">Interactions per week</h2>
+        <section className="card p-5">
+          <h2 className="section-title mb-3">Interactions per week</h2>
           <WeeklyChart data={weekly} />
         </section>
       </div>
 
-      <section className="rounded border p-4">
-        <h2 className="mb-2 font-medium">Streak history</h2>
+      <section className="card p-5">
+        <h2 className="section-title mb-3">Streak history</h2>
         <StreakHistory goal={goal} weekly={weekly} />
       </section>
 
-      <section className="rounded border p-4">
-        <h2 className="mb-2 font-medium">Achievements</h2>
+      <section className="card p-5">
+        <h2 className="section-title mb-3">Achievements</h2>
         <BadgeGrid achievements={achievements} />
       </section>
     </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { authClient } from "../lib/auth-client";
+import OrbitMark from "./ui/OrbitMark";
 
 export default function AuthForm() {
   const [mode, setMode] = useState<"signIn" | "signUp">("signIn");
@@ -28,10 +29,19 @@ export default function AuthForm() {
   };
 
   return (
-    <div className="w-full max-w-sm p-6">
-      <h1 className="text-xl mb-4">
-        {mode === "signIn" ? "Sign In" : "Sign Up"}
-      </h1>
+    <div className="card w-full px-8 py-9">
+      <div className="mb-7 flex flex-col items-center gap-3 text-center">
+        <OrbitMark size={42} className="text-sun" />
+        <div>
+          <h1 className="font-display text-2xl font-semibold text-ink">Orbit</h1>
+          <p className="mt-1 text-sm text-muted">
+            {mode === "signIn"
+              ? "Welcome back to your network."
+              : "Keep your people close, warmly."}
+          </p>
+        </div>
+      </div>
+
       <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
         {mode === "signUp" && (
           <input
@@ -40,7 +50,7 @@ export default function AuthForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="px-3 py-2 border rounded"
+            className="input"
           />
         )}
         <input
@@ -49,7 +59,7 @@ export default function AuthForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="px-3 py-2 border rounded"
+          className="input"
         />
         <div className="flex gap-2">
           <input
@@ -59,30 +69,31 @@ export default function AuthForm() {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={8}
-            className="flex-1 px-3 py-2 border rounded"
+            className="input flex-1"
           />
           <button
             type="button"
-            className="px-3 py-2 border rounded"
+            className="btn btn-ghost shrink-0 px-4"
             onClick={() => setShowPassword((v) => !v)}
             aria-label={showPassword ? "Hide password" : "Show password"}
           >
             {showPassword ? "Hide" : "Show"}
           </button>
         </div>
-        {error && <p className="text-red-600 text-sm">{error}</p>}
+        {error && <p className="text-sm text-coral">{error}</p>}
         <button
-          className="px-3 py-2 bg-black text-white rounded disabled:opacity-50"
+          className="btn btn-primary w-full py-2.5"
           type="submit"
           disabled={loading}
         >
           {loading ? "Loading…" : mode === "signIn" ? "Sign In" : "Sign Up"}
         </button>
       </form>
-      <p className="mt-4 text-sm">
-        {mode === "signIn" ? "No account? " : "Already have an account? "}
+
+      <p className="mt-5 text-center text-sm text-muted">
+        {mode === "signIn" ? "New to Orbit? " : "Already have an account? "}
         <button
-          className="underline"
+          className="link"
           type="button"
           onClick={() => {
             setMode(mode === "signIn" ? "signUp" : "signIn");

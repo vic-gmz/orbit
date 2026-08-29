@@ -10,13 +10,18 @@ export default function DashboardPage() {
   const contacts = useQuery(api.contacts.list, {});
 
   if (contacts === undefined) {
-    return <p>Loading...</p>;
+    return <p className="text-sm text-muted">Loading…</p>;
   }
 
   if (contacts.length === 0) {
     return (
-      <div className="flex flex-col gap-4">
-        <h1 className="text-xl">Dashboard</h1>
+      <div className="stagger flex flex-col gap-5">
+        <div>
+          <h1 className="page-title">Dashboard</h1>
+          <p className="mt-1 text-sm text-muted">
+            A quiet place to tend your network.
+          </p>
+        </div>
         <EmptyState
           title="No contacts yet."
           message="Add your first contact to start networking."
@@ -28,13 +33,18 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <h1 className="text-xl">Dashboard</h1>
-      <div className="grid grid-cols-2 gap-4">
+    <div className="stagger flex flex-col gap-5">
+      <div>
+        <h1 className="page-title">Dashboard</h1>
+        <p className="mt-1 text-sm text-muted">
+          A quiet place to tend your network.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <WeeklyGoalWidget />
         <StreakDisplay />
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <RecentInteractions />
         <PendingFollowUps />
       </div>

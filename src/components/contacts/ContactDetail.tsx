@@ -45,14 +45,14 @@ export default function ContactDetail() {
   };
 
   if (contact === undefined || interactions === undefined) {
-    return <p>Loading...</p>;
+    return <p className="text-sm text-muted">Loading…</p>;
   }
 
   if (contact === null) {
     return (
-      <p>
+      <p className="text-sm text-muted">
         Not found.{" "}
-        <Link to="/contacts" className="underline">
+        <Link to="/contacts" className="link">
           Back to contacts
         </Link>
       </p>
@@ -60,121 +60,130 @@ export default function ContactDetail() {
   }
 
   return (
-    <div className="flex max-w-2xl flex-col gap-4">
-      <Link to="/contacts" className="text-sm text-gray-500">
+    <div className="stagger mx-auto flex max-w-2xl flex-col gap-6">
+      <Link to="/contacts" className="link text-sm font-semibold">
         ← Back
       </Link>
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <AuraAvatar
-            src={avatarUrl}
-            name={contact.name}
-            interactionCount={contact.interactionCount}
-            size={64}
-          />
-          <div>
-            <h1 className="text-xl">{contact.name}</h1>
-            {contact.role && <p className="text-gray-500">{contact.role}</p>}
-            {company && (
-              <Link
-                to={`/companies/${company._id}`}
-                className="text-blue-600"
-              >
-                {company.name}
-              </Link>
-            )}
+
+      <div className="card flex flex-col gap-5 p-6">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <AuraAvatar
+              src={avatarUrl}
+              name={contact.name}
+              interactionCount={contact.interactionCount}
+              size={64}
+            />
+            <div>
+              <h1 className="font-display text-2xl font-semibold text-ink">
+                {contact.name}
+              </h1>
+              {contact.role && <p className="text-muted">{contact.role}</p>}
+              {company && (
+                <Link
+                  to={`/companies/${company._id}`}
+                  className="link text-sm"
+                >
+                  {company.name}
+                </Link>
+              )}
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Link
+              to={`/contacts/${contact._id}/edit`}
+              className="btn btn-ghost btn-sm"
+            >
+              Edit
+            </Link>
+            <button
+              className="btn btn-danger btn-sm"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
           </div>
         </div>
-        <div className="flex gap-2">
-          <Link
-            to={`/contacts/${contact._id}/edit`}
-            className="rounded border px-3 py-2"
-          >
-            Edit
-          </Link>
-          <button
-            className="rounded border px-3 py-2 text-red-600"
-            onClick={handleDelete}
-          >
-            Delete
-          </button>
+
+        {(contact.email || contact.linkedinUrl || contact.githubUrl) && (
+          <div className="flex flex-wrap gap-x-5 gap-y-1 text-sm">
+            {contact.email && (
+              <a href={`mailto:${contact.email}`} className="link">
+                {contact.email}
+              </a>
+            )}
+            {contact.linkedinUrl && (
+              <a
+                href={contact.linkedinUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="link"
+              >
+                LinkedIn
+              </a>
+            )}
+            {contact.githubUrl && (
+              <a
+                href={contact.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="link"
+              >
+                GitHub
+              </a>
+            )}
+          </div>
+        )}
+
+        <div>
+          <h2 className="section-title">Tags</h2>
+          <div className="mt-2">
+            <TagManager contactId={contact._id} />
+          </div>
         </div>
+
+        {contact.personalProjects && (
+          <div>
+            <h2 className="section-title">Personal projects</h2>
+            <p className="mt-1.5 whitespace-pre-wrap text-sm leading-relaxed text-ink-soft">
+              {contact.personalProjects}
+            </p>
+          </div>
+        )}
+
+        {contact.notes && (
+          <div>
+            <h2 className="section-title">Notes</h2>
+            <p className="mt-1.5 whitespace-pre-wrap text-sm leading-relaxed text-ink-soft">
+              {contact.notes}
+            </p>
+          </div>
+        )}
+
+        <p className="text-xs text-muted">
+          {contact.interactionCount} interactions · last{" "}
+          {contact.lastInteractionAt
+            ? formatDate(contact.lastInteractionAt)
+            : "never"}
+        </p>
       </div>
 
-      {(contact.email || contact.linkedinUrl || contact.githubUrl) && (
-        <div className="flex flex-col gap-1 text-sm">
-          {contact.email && (
-            <a href={`mailto:${contact.email}`} className="text-blue-600">
-              {contact.email}
-            </a>
-          )}
-          {contact.linkedinUrl && (
-            <a
-              href={contact.linkedinUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="text-blue-600"
-            >
-              LinkedIn
-            </a>
-          )}
-          {contact.githubUrl && (
-            <a
-              href={contact.githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="text-blue-600"
-            >
-              GitHub
-            </a>
-          )}
-        </div>
-      )}
-
-      <div>
-        <h2 className="text-lg">Tags</h2>
-        <div className="mt-1">
-          <TagManager contactId={contact._id} />
-        </div>
-      </div>
-
-      {contact.personalProjects && (
-        <div>
-          <h2 className="text-lg">Personal projects</h2>
-          <p className="whitespace-pre-wrap">{contact.personalProjects}</p>
-        </div>
-      )}
-
-      {contact.notes && (
-        <div>
-          <h2 className="text-lg">Notes</h2>
-          <p className="whitespace-pre-wrap">{contact.notes}</p>
-        </div>
-      )}
-
-      <div>
-        <h2 className="text-lg">Log interaction</h2>
-        <div className="mt-1">
+      <section>
+        <h2 className="section-title">Log interaction</h2>
+        <div className="mt-2">
           <InteractionForm
             contactId={contact._id}
             onCreated={handleInteractionCreated}
           />
         </div>
-      </div>
+      </section>
 
-      <div>
-        <h2 className="text-lg">Interactions</h2>
-        <div className="mt-1">
+      <section>
+        <h2 className="section-title">Interactions</h2>
+        <div className="mt-2">
           <InteractionTimeline interactions={interactions} />
         </div>
-      </div>
-
-      <p className="text-sm text-gray-500">
-        {contact.interactionCount} interactions · last{" "}
-        {contact.lastInteractionAt
-          ? formatDate(contact.lastInteractionAt)
-          : "never"}
-      </p>
+      </section>
     </div>
   );
 }

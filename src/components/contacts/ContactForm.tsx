@@ -20,12 +20,12 @@ export default function ContactForm() {
     isEdit ? { id: id as ContactId } : "skip",
   );
 
-  if (isEdit && contact === undefined) return <p>Loading...</p>;
+  if (isEdit && contact === undefined) return <p className="text-sm text-muted">Loading…</p>;
   if (isEdit && contact === null) {
     return (
-      <p>
+      <p className="text-sm text-muted">
         Not found.{" "}
-        <Link to="/contacts" className="underline">
+        <Link to="/contacts" className="link">
           Back to contacts
         </Link>
       </p>
@@ -125,61 +125,71 @@ function ContactFormFields({
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <Link to="/contacts" className="text-sm text-gray-500">
+    <div className="stagger mx-auto flex max-w-xl flex-col gap-5">
+      <Link to="/contacts" className="link text-sm font-semibold">
         ← Back
       </Link>
-      <h1 className="text-xl">{initial ? "Edit contact" : "New contact"}</h1>
-      <form className="flex max-w-md flex-col gap-3" onSubmit={handleSubmit}>
-        {(avatarUrl || avatarFile) && (
-          <img
-            src={avatarFile ? URL.createObjectURL(avatarFile) : avatarUrl ?? ""}
-            alt=""
-            className="h-16 w-16 rounded-full object-cover"
+      <h1 className="page-title">
+        {initial ? "Edit contact" : "New contact"}
+      </h1>
+
+      <form
+        className="card flex flex-col gap-3.5 p-6"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex items-center gap-4">
+          {(avatarUrl || avatarFile) && (
+            <img
+              src={avatarFile ? URL.createObjectURL(avatarFile) : avatarUrl ?? ""}
+              alt=""
+              className="h-16 w-16 rounded-full border-2 border-sand object-cover"
+            />
+          )}
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setAvatarFile(e.target.files?.[0] ?? null)}
+            aria-label="Upload avatar"
+            className="w-full text-sm text-muted file:mr-3 file:cursor-pointer file:rounded-lg file:border-0 file:bg-sun-soft/70 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-ink-soft file:transition-colors hover:file:bg-sun-soft"
           />
-        )}
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setAvatarFile(e.target.files?.[0] ?? null)}
-          className="rounded border px-3 py-2 text-sm"
-        />
+        </div>
         <input
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="rounded border px-3 py-2"
+          className="input"
         />
         <input
           placeholder="Email (optional)"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="rounded border px-3 py-2"
+          className="input"
         />
         <input
           placeholder="LinkedIn URL (optional)"
           value={linkedinUrl}
           onChange={(e) => setLinkedinUrl(e.target.value)}
-          className="rounded border px-3 py-2"
+          className="input"
         />
         <input
           placeholder="GitHub URL (optional)"
           value={githubUrl}
           onChange={(e) => setGithubUrl(e.target.value)}
-          className="rounded border px-3 py-2"
+          className="input"
         />
         <input
           placeholder="Role (optional)"
           value={role}
           onChange={(e) => setRole(e.target.value)}
-          className="rounded border px-3 py-2"
+          className="input"
         />
         <select
           value={companyId}
           onChange={(e) => setCompanyId(e.target.value)}
-          className="rounded border px-3 py-2"
+          aria-label="Company"
+          className="input"
         >
           <option value="">No company</option>
           {companies?.map((c) => (
@@ -192,23 +202,22 @@ function ContactFormFields({
           placeholder="Personal projects (optional)"
           value={personalProjects}
           onChange={(e) => setPersonalProjects(e.target.value)}
-          className="rounded border px-3 py-2"
+          rows={3}
+          className="input resize-y"
         />
         <textarea
           placeholder="Notes (optional)"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          className="rounded border px-3 py-2"
+          rows={3}
+          className="input resize-y"
         />
-        {error && <p className="text-sm text-red-600">{error}</p>}
-        <div className="flex gap-2">
-          <button
-            type="submit"
-            className="rounded bg-black px-3 py-2 text-white"
-          >
+        {error && <p className="text-sm text-coral">{error}</p>}
+        <div className="flex gap-2 pt-1">
+          <button type="submit" className="btn btn-primary">
             {initial ? "Save" : "Create"}
           </button>
-          <Link to="/contacts" className="rounded border px-3 py-2">
+          <Link to="/contacts" className="btn btn-ghost">
             Cancel
           </Link>
         </div>

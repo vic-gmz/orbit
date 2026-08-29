@@ -13,31 +13,37 @@ export default function InteractionItem({
     interaction.followUpDate && !interaction.followUpDone;
 
   return (
-    <div className="flex flex-col gap-1 rounded border p-3">
-      <div className="flex items-center justify-between">
-        <span className="text-sm font-medium">
+    <div className="card flex flex-col gap-1.5 p-4">
+      <div className="flex items-center justify-between gap-3">
+        <span className="text-sm font-semibold text-ink">
           {INTERACTION_TYPE_LABELS[interaction.type]}
         </span>
         <span
-          className="text-xs text-gray-500"
+          className="text-xs text-muted"
           title={formatDate(interaction.date)}
         >
           {formatRelativeDate(interaction.date)}
         </span>
       </div>
       {interaction.notes && (
-        <p className="whitespace-pre-wrap text-sm">{interaction.notes}</p>
+        <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink-soft">
+          {interaction.notes}
+        </p>
       )}
       {followUpPending ? (
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-amber-700">
+        <div className="mt-1 flex items-center justify-between gap-3">
+          <span className="chip border-sun-soft/70 bg-sun-soft/60 text-ink-soft">
+            <span
+              className="h-1.5 w-1.5 rounded-full bg-sun"
+              aria-hidden="true"
+            />
             Follow-up: {formatDate(interaction.followUpDate!)}
           </span>
           {onMarkDone && (
             <button
               type="button"
               onClick={() => onMarkDone(interaction._id)}
-              className="rounded border px-2 py-1 text-xs"
+              className="btn btn-ghost btn-sm"
             >
               Mark done
             </button>
@@ -45,7 +51,11 @@ export default function InteractionItem({
         </div>
       ) : (
         interaction.followUpDate && (
-          <span className="text-xs text-gray-500">
+          <span className="chip bg-sage/15 text-ink-soft">
+            <span
+              className="h-1.5 w-1.5 rounded-full bg-sage"
+              aria-hidden="true"
+            />
             Follow-up: {formatDate(interaction.followUpDate)} (done)
           </span>
         )

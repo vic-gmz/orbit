@@ -10,14 +10,14 @@ export default function TagManager({ contactId }: { contactId: ContactId }) {
 
   const [creating, setCreating] = useState(false);
   const [newName, setNewName] = useState("");
-  const [newColor, setNewColor] = useState("#3B82F6");
+  const [newColor, setNewColor] = useState("#E8A04C");
 
   const assign = useMutation(api.tags.assignToContact);
   const unassign = useMutation(api.tags.unassignFromContact);
   const createTag = useMutation(api.tags.create);
 
   if (allTags === undefined || contactTags === undefined) {
-    return <p className="text-sm text-gray-500">Loading...</p>;
+    return <p className="text-sm text-muted">Loading…</p>;
   }
 
   const assignedIds = new Set<TagId>(contactTags.map((t) => t._id));
@@ -40,7 +40,7 @@ export default function TagManager({ contactId }: { contactId: ContactId }) {
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-1">
+    <div className="flex flex-wrap items-center gap-1.5">
       {allTags.map((t) => (
         <TagBadge
           key={t._id}
@@ -56,25 +56,27 @@ export default function TagManager({ contactId }: { contactId: ContactId }) {
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             placeholder="Tag name"
-            className="w-28 rounded border px-2 py-1 text-xs"
+            aria-label="New tag name"
+            className="input w-28 px-2 py-1 text-xs"
           />
           <input
             type="color"
             value={newColor}
             onChange={(e) => setNewColor(e.target.value)}
-            className="h-6 w-6 cursor-pointer"
+            aria-label="Tag color"
+            className="h-7 w-7 cursor-pointer rounded border-0 bg-transparent p-0"
           />
           <button
             type="button"
             onClick={handleCreate}
-            className="rounded border px-2 py-1 text-xs"
+            className="btn btn-primary btn-sm"
           >
             Save
           </button>
           <button
             type="button"
             onClick={() => setCreating(false)}
-            className="rounded border px-2 py-1 text-xs text-gray-500"
+            className="btn btn-ghost btn-sm"
           >
             Cancel
           </button>
@@ -83,7 +85,7 @@ export default function TagManager({ contactId }: { contactId: ContactId }) {
         <button
           type="button"
           onClick={() => setCreating(true)}
-          className="rounded-full border px-2 py-1 text-xs text-gray-500"
+          className="chip hover:bg-sand/40 hover:text-ink-soft"
         >
           + New tag
         </button>

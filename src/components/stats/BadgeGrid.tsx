@@ -11,19 +11,26 @@ export default function BadgeGrid({
   );
 
   return (
-    <div className="grid grid-cols-3 gap-2">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
       {ACHIEVEMENTS.map((def) => {
         const isUnlocked = unlocked.has(def.id);
         return (
           <div
             key={def.id}
-            className={`flex flex-col items-center gap-1 rounded border p-3 ${
-              isUnlocked ? "" : "opacity-50 grayscale"
+            className={`card flex flex-col items-center gap-1.5 p-4 text-center transition-all duration-300 ${
+              isUnlocked ? "" : "opacity-45 grayscale"
             }`}
           >
-            <span className="text-xl">{isUnlocked ? "🏅" : "?"}</span>
-            <span className="text-sm font-medium">{def.name}</span>
-            <span className="text-xs text-gray-500">
+            <span
+              className={`text-2xl ${isUnlocked ? "achievement-glow" : ""}`}
+              aria-hidden="true"
+            >
+              {isUnlocked ? "🏅" : "?"}
+            </span>
+            <span className="text-sm font-semibold leading-tight text-ink">
+              {def.name}
+            </span>
+            <span className="text-xs text-muted">
               {isUnlocked ? "Unlocked" : "Locked"}
             </span>
           </div>

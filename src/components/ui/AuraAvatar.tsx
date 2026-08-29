@@ -35,6 +35,7 @@ export default function AuraAvatar({
           } as CSSProperties
         }
         viewBox={`0 0 ${svgSize} ${svgSize}`}
+        aria-hidden="true"
       >
         <circle
           cx={svgSize / 2}
@@ -52,7 +53,7 @@ export default function AuraAvatar({
           className="h-full w-full rounded-full object-cover"
         />
       ) : (
-        <div className="flex h-full w-full items-center justify-center rounded-full bg-gray-200 text-sm">
+        <div className="flex h-full w-full items-center justify-center rounded-full bg-sand/60 text-sm font-semibold text-ink-soft">
           {initials}
         </div>
       )}

@@ -24,19 +24,21 @@ export default function ContactsPage() {
   }, [companies]);
 
   if (contacts === undefined || companies === undefined || tags === undefined) {
-    return <p>Loading...</p>;
+    return <p className="text-sm text-muted">Loading…</p>;
   }
 
   const filtering = search || companyId || tagId;
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl">Contacts</h1>
-        <Link
-          to="/contacts/new"
-          className="rounded bg-black px-3 py-2 text-white"
-        >
+    <div className="stagger flex flex-col gap-5">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="page-title">Contacts</h1>
+          <p className="mt-1 text-sm text-muted">
+            The people who make up your orbit.
+          </p>
+        </div>
+        <Link to="/contacts/new" className="btn btn-primary">
           + Add contact
         </Link>
       </div>
@@ -46,7 +48,8 @@ export default function ContactsPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search contacts..."
-          className="rounded border px-3 py-2"
+          aria-label="Search contacts"
+          className="input w-full sm:w-64"
         />
         <select
           value={companyId ?? ""}
@@ -55,7 +58,8 @@ export default function ContactsPage() {
               e.target.value ? (e.target.value as CompanyId) : undefined,
             )
           }
-          className="rounded border px-3 py-2"
+          aria-label="Filter by company"
+          className="input w-full sm:w-auto"
         >
           <option value="">All companies</option>
           {companies.map((c) => (
@@ -69,7 +73,8 @@ export default function ContactsPage() {
           onChange={(e) =>
             setTagId(e.target.value ? (e.target.value as TagId) : undefined)
           }
-          className="rounded border px-3 py-2"
+          aria-label="Filter by tag"
+          className="input w-full sm:w-auto"
         >
           <option value="">All tags</option>
           {tags.map((t) => (
@@ -95,7 +100,7 @@ export default function ContactsPage() {
           />
         )
       ) : (
-        <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
           {contacts.map((c) => (
             <ContactCard
               key={c._id}

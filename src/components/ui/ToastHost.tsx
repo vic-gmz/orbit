@@ -19,8 +19,16 @@ export default function ToastHost() {
   if (!message) return null;
 
   return (
-    <div className="fixed right-4 top-4 z-50 rounded-md border border-gray-200 bg-white px-4 py-3 text-sm shadow-lg">
-      {message}
+    <div
+      className="fixed bottom-6 right-6 z-50 flex max-w-sm items-center gap-2.5 rounded-2xl border border-sand bg-paper px-4 py-3 text-sm text-ink shadow-lift"
+      role="status"
+      style={{ animation: "toast-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both" }}
+    >
+      <span
+        className="h-2 w-2 shrink-0 rounded-full bg-gradient-to-r from-sun to-coral"
+        aria-hidden="true"
+      />
+      <span className="min-w-0">{message}</span>
     </div>
   );
 }

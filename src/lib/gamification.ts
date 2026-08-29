@@ -51,9 +51,9 @@ export function getLevel(totalInteractions: number): {
 }
 
 export function getAuraColor(interactionCount: number): string {
-  if (interactionCount === 0) return "#9CA3AF";
-  if (interactionCount < 2) return "#3B82F6";
-  if (interactionCount < 6) return "#8B5CF6";
-  if (interactionCount < 16) return "#F59E0B";
-  return "#10B981";
+  if (interactionCount === 0) return "#C9BBA5";
+  if (interactionCount < 2) return "#7FA8C3";
+  if (interactionCount < 6) return "#A88FC2";
+  if (interactionCount < 16) return "#E8A04C";
+  return "#8FAA82";
 }

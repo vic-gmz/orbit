@@ -8,33 +8,34 @@ export default function RecentInteractions() {
   const recent = useQuery(api.interactions.recent, {});
 
   if (recent === undefined) {
-    return <p className="text-sm text-gray-500">Loading...</p>;
+    return (
+      <section className="card p-5">
+        <p className="text-sm text-muted">Loading…</p>
+      </section>
+    );
   }
 
   return (
-    <section className="flex flex-col gap-2 rounded border p-4">
-      <h2 className="font-medium">Recent interactions</h2>
+    <section className="card flex flex-col gap-3 p-5">
+      <h2 className="section-title">Recent interactions</h2>
       {recent.length === 0 ? (
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-muted">
           No interactions yet. Log your first one from a contact.
         </p>
       ) : (
-        <ul className="flex flex-col gap-2">
+        <ul className="flex flex-col divide-y divide-sand/60">
           {recent.map((i) => (
-            <li key={i._id} className="flex items-center justify-between text-sm">
-              <div>
-                <Link
-                  to={`/contacts/${i.contact._id}`}
-                  className="text-blue-600"
-                >
+            <li key={i._id} className="flex items-center justify-between gap-3 py-2.5 text-sm">
+              <div className="min-w-0">
+                <Link to={`/contacts/${i.contact._id}`} className="link">
                   {i.contact.name}
                 </Link>
-                <span className="text-gray-500">
+                <span className="text-muted">
                   {" "}
                   · {INTERACTION_TYPE_LABELS[i.type]}
                 </span>
               </div>
-              <span className="text-xs text-gray-500">
+              <span className="shrink-0 text-xs text-muted">
                 {formatRelativeDate(i.date)}
               </span>
             </li>

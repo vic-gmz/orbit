@@ -12,12 +12,12 @@ export default function CompanyForm() {
     isEdit ? { id: id as CompanyId } : "skip",
   );
 
-  if (isEdit && company === undefined) return <p>Loading...</p>;
+  if (isEdit && company === undefined) return <p className="text-sm text-muted">Loading…</p>;
   if (isEdit && company === null) {
     return (
-      <p>
+      <p className="text-sm text-muted">
         Not found.{" "}
-        <Link to="/companies" className="underline">
+        <Link to="/companies" className="link">
           Back to companies
         </Link>
       </p>
@@ -70,60 +70,56 @@ function CompanyFormFields({ initial }: { initial?: Company }) {
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <Link to="/companies" className="text-sm text-gray-500">
+    <div className="stagger mx-auto flex max-w-xl flex-col gap-5">
+      <Link to="/companies" className="link text-sm font-semibold">
         ← Back
       </Link>
-      <h1 className="text-xl">{initial ? "Edit company" : "New company"}</h1>
-      <form
-        className="flex max-w-md flex-col gap-3"
-        onSubmit={handleSubmit}
-      >
+      <h1 className="page-title">
+        {initial ? "Edit company" : "New company"}
+      </h1>
+
+      <form className="card flex flex-col gap-3.5 p-6" onSubmit={handleSubmit}>
         <input
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="rounded border px-3 py-2"
+          className="input"
         />
         <input
           placeholder="Website (optional)"
           value={website}
           onChange={(e) => setWebsite(e.target.value)}
-          className="rounded border px-3 py-2"
+          className="input"
         />
         <input
           placeholder="Industry (optional)"
           value={industry}
           onChange={(e) => setIndustry(e.target.value)}
-          className="rounded border px-3 py-2"
+          className="input"
         />
         <textarea
           placeholder="Notes (optional)"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          className="rounded border px-3 py-2"
+          rows={4}
+          className="input resize-y"
         />
-        <label className="flex items-center gap-2 text-sm">
+        <label className="flex cursor-pointer items-center gap-2 text-sm text-ink-soft">
           <input
             type="checkbox"
             checked={isTracked}
             onChange={(e) => setIsTracked(e.target.checked)}
+            className="h-4 w-4 accent-sun"
           />
           Tracked
         </label>
-        {error && <p className="text-sm text-red-600">{error}</p>}
-        <div className="flex gap-2">
-          <button
-            type="submit"
-            className="rounded bg-black px-3 py-2 text-white"
-          >
+        {error && <p className="text-sm text-coral">{error}</p>}
+        <div className="flex gap-2 pt-1">
+          <button type="submit" className="btn btn-primary">
             {initial ? "Save" : "Create"}
           </button>
-          <Link
-            to="/companies"
-            className="rounded border px-3 py-2"
-          >
+          <Link to="/companies" className="btn btn-ghost">
             Cancel
           </Link>
         </div>

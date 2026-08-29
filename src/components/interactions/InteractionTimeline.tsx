@@ -13,9 +13,9 @@ export default function InteractionTimeline({
   const sorted = [...interactions].sort((a, b) => b.date - a.date);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2.5">
       {sorted.length === 0 ? (
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-muted">
           No interactions yet. Log your first one with the form above.
         </p>
       ) : (

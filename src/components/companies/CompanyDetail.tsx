@@ -21,14 +21,14 @@ export default function CompanyDetail() {
   };
 
   if (company === undefined || contacts === undefined) {
-    return <p>Loading...</p>;
+    return <p className="text-sm text-muted">Loading…</p>;
   }
 
   if (company === null) {
     return (
-      <p>
+      <p className="text-sm text-muted">
         Not found.{" "}
-        <Link to="/companies" className="underline">
+        <Link to="/companies" className="link">
           Back to companies
         </Link>
       </p>
@@ -36,40 +36,45 @@ export default function CompanyDetail() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <Link to="/companies" className="text-sm text-gray-500">
+    <div className="stagger mx-auto flex max-w-3xl flex-col gap-6">
+      <Link to="/companies" className="link text-sm font-semibold">
         ← Back
       </Link>
-      <div className="flex items-start justify-between gap-4">
+
+      <div className="card flex flex-wrap items-start justify-between gap-4 p-6">
         <div>
-          <h1 className="text-xl">{company.name}</h1>
-          {company.industry && (
-            <p className="text-gray-500">{company.industry}</p>
-          )}
+          <h1 className="font-display text-2xl font-semibold text-ink">
+            {company.name}
+          </h1>
+          {company.industry && <p className="text-muted">{company.industry}</p>}
           {company.website && (
             <a
               href={company.website}
               target="_blank"
               rel="noreferrer"
-              className="text-blue-600"
+              className="link text-sm"
             >
               {company.website}
             </a>
           )}
-          {company.notes && <p className="mt-2">{company.notes}</p>}
-          <p className="mt-1 text-sm text-gray-500">
+          {company.notes && (
+            <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-ink-soft">
+              {company.notes}
+            </p>
+          )}
+          <p className="mt-3 text-sm text-muted">
             {company.isTracked ? "★ Tracked" : "☆ Untracked"}
           </p>
         </div>
         <div className="flex gap-2">
           <Link
             to={`/companies/${company._id}/edit`}
-            className="rounded border px-3 py-2"
+            className="btn btn-ghost btn-sm"
           >
             Edit
           </Link>
           <button
-            className="rounded border px-3 py-2 text-red-600"
+            className="btn btn-danger btn-sm"
             onClick={handleDelete}
           >
             Delete
@@ -77,25 +82,27 @@ export default function CompanyDetail() {
         </div>
       </div>
 
-      <div>
+      <section>
         <div className="flex items-center justify-between">
-          <h2 className="text-lg">Contacts</h2>
+          <h2 className="section-title">Contacts</h2>
           <Link
             to={`/contacts/new?companyId=${company._id}`}
-            className="rounded bg-black px-3 py-2 text-sm text-white"
+            className="btn btn-primary btn-sm"
           >
             + Add contact
           </Link>
         </div>
         {contacts.length === 0 ? (
-          <EmptyState
-            title="No contacts at this company yet."
-            message="Add someone you know at this company."
-            actionLabel="+ Add contact"
-            actionTo={`/contacts/new?companyId=${company._id}`}
-          />
+          <div className="mt-2">
+            <EmptyState
+              title="No contacts at this company yet."
+              message="Add someone you know at this company."
+              actionLabel="+ Add contact"
+              actionTo={`/contacts/new?companyId=${company._id}`}
+            />
+          </div>
         ) : (
-          <ul className="mt-2 flex flex-col gap-2">
+          <ul className="mt-3 flex flex-col gap-2.5">
             {contacts.map((c) => (
               <li key={c._id}>
                 <ContactCard contact={c} />
@@ -103,7 +110,7 @@ export default function CompanyDetail() {
             ))}
           </ul>
         )}
-      </div>
+      </section>
     </div>
   );
 }

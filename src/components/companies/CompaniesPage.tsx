@@ -9,12 +9,14 @@ function TrackedToggle({ company }: { company: Company }) {
   const toggleTracked = useMutation(api.companies.toggleTracked);
   return (
     <button
+      type="button"
       className={
         company.isTracked
-          ? "rounded border px-2 py-1 text-sm"
-          : "rounded border px-2 py-1 text-sm text-gray-500"
+          ? "chip border-sun-soft bg-sun-soft/60 text-sun hover:bg-sun-soft"
+          : "chip hover:bg-sand/40 hover:text-ink-soft"
       }
       onClick={() => toggleTracked({ id: company._id })}
+      aria-pressed={company.isTracked}
     >
       {company.isTracked ? "★ Tracked" : "☆ Untracked"}
     </button>
@@ -51,33 +53,37 @@ export default function CompaniesPage() {
   }, [companies, search, trackedOnly]);
 
   if (companies === undefined || contacts === undefined) {
-    return <p>Loading...</p>;
+    return <p className="text-sm text-muted">Loading…</p>;
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl">Companies</h1>
-        <Link
-          to="/companies/new"
-          className="rounded bg-black px-3 py-2 text-white"
-        >
+    <div className="stagger flex flex-col gap-5">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="page-title">Companies</h1>
+          <p className="mt-1 text-sm text-muted">
+            The places your people orbit around.
+          </p>
+        </div>
+        <Link to="/companies/new" className="btn btn-primary">
           + Add company
         </Link>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search companies..."
-          className="rounded border px-3 py-2"
+          aria-label="Search companies"
+          className="input w-full sm:w-64"
         />
-        <label className="flex items-center gap-2 text-sm">
+        <label className="flex cursor-pointer items-center gap-2 text-sm text-ink-soft">
           <input
             type="checkbox"
             checked={trackedOnly}
             onChange={(e) => setTrackedOnly(e.target.checked)}
+            className="h-4 w-4 accent-sun"
           />
           Tracked only
         </label>
@@ -98,15 +104,15 @@ export default function CompaniesPage() {
           />
         )
       ) : (
-        <ul className="flex flex-col gap-2">
+        <ul className="flex flex-col gap-2.5">
           {filtered!.map((c) => (
             <li
               key={c._id}
-              className="flex items-center justify-between rounded border p-3"
+              className="card flex items-center justify-between gap-3 p-4 transition-all duration-200 hover:border-sand-deep hover:shadow-lift"
             >
-              <Link to={`/companies/${c._id}`} className="flex flex-col">
-                <span className="font-medium">{c.name}</span>
-                <span className="text-sm text-gray-500">
+              <Link to={`/companies/${c._id}`} className="flex min-w-0 flex-col">
+                <span className="font-semibold text-ink">{c.name}</span>
+                <span className="text-sm text-muted">
                   {c.industry ?? "No industry"} ·{" "}
                   {contactsByCompany.get(c._id) ?? 0} contacts
                 </span>

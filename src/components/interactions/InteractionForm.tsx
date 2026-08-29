@@ -42,48 +42,64 @@ export default function InteractionForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-2 rounded border p-3"
+      className="card flex flex-col gap-3 p-4"
     >
-      <div className="flex flex-wrap gap-2">
-        <select
-          value={type}
-          onChange={(e) => setType(e.target.value as InteractionType)}
-          className="rounded border px-2 py-1 text-sm"
-        >
-          {INTERACTION_TYPES.map((t) => (
-            <option key={t} value={t}>
-              {INTERACTION_TYPE_LABELS[t]}
-            </option>
-          ))}
-        </select>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className="rounded border px-2 py-1 text-sm"
-        />
-        <label htmlFor="followUpDate">Follow-up</label>
-        <input
-          id="followUpDate"
-          type="date"
-          value={followUpDate}
-          onChange={(e) => setFollowUpDate(e.target.value)}
-          className="rounded border px-2 py-1 text-sm"
-          placeholder="Follow-up"
-        />
+      <div className="flex flex-wrap items-end gap-3">
+        <div className="flex flex-col gap-1">
+          <label className="label" htmlFor="interaction-type">
+            How did it go?
+          </label>
+          <select
+            id="interaction-type"
+            value={type}
+            onChange={(e) => setType(e.target.value as InteractionType)}
+            className="input w-auto"
+          >
+            {INTERACTION_TYPES.map((t) => (
+              <option key={t} value={t}>
+                {INTERACTION_TYPE_LABELS[t]}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="flex flex-col gap-1">
+          <label className="label" htmlFor="interaction-date">
+            When
+          </label>
+          <input
+            id="interaction-date"
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="input w-auto"
+          />
+        </div>
+        <div className="flex flex-col gap-1">
+          <label className="label" htmlFor="followUpDate">
+            Follow-up
+          </label>
+          <input
+            id="followUpDate"
+            type="date"
+            value={followUpDate}
+            onChange={(e) => setFollowUpDate(e.target.value)}
+            className="input w-auto"
+          />
+        </div>
       </div>
       <textarea
         value={notes}
         onChange={(e) => setNotes(e.target.value)}
         placeholder="What happened?"
-        className="rounded border p-2 text-sm"
+        aria-label="Notes"
+        className="input resize-y"
         rows={2}
       />
-      <div className="flex items-center justify-between">
-        <span className="text-xs text-gray-500">
+      <div className="flex items-center justify-between gap-3">
+        <span className="text-xs text-muted">
           {followUpDate ? "With follow-up" : "No follow-up"}
         </span>
-        <button type="submit" className="rounded border px-3 py-1 text-sm">
+        <button type="submit" className="btn btn-primary btn-sm">
           Log interaction
         </button>
       </div>

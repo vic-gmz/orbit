@@ -6,7 +6,11 @@ export default function WeeklyGoalWidget() {
   const progress = useQuery(api.goals.weeklyProgress, {});
 
   if (progress === undefined) {
-    return <p className="text-sm text-gray-500">Loading...</p>;
+    return (
+      <section className="card p-5">
+        <p className="text-sm text-muted">Loading…</p>
+      </section>
+    );
   }
 
   return (
@@ -28,28 +32,44 @@ function GoalEditor({ goal, current }: { goal: number; current: number }) {
   };
 
   return (
-    <section className="flex flex-col gap-2 rounded border p-4">
-      <h2 className="font-medium">Weekly goal</h2>
-      <div className="h-2 w-full overflow-hidden rounded bg-gray-200">
-        <div className="h-full bg-blue-600" style={{ width: `${pct}%` }} />
+    <section className="card flex flex-col gap-3 p-5">
+      <div className="flex items-center justify-between">
+        <h2 className="section-title">Weekly goal</h2>
+        <span className="chip bg-sun-soft/60 text-ink-soft">{pct}%</span>
       </div>
-      <p className="text-sm text-gray-500">
+      <div
+        className="h-2.5 w-full overflow-hidden rounded-full bg-sand/70"
+        role="progressbar"
+        aria-valuenow={pct}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
+        <div
+          className="progress-fill h-full rounded-full bg-gradient-to-r from-sun to-coral"
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+      <p className="text-sm text-muted">
         {current} of {goal} interactions this week
       </p>
       <div className="flex items-center gap-2">
+        <label className="sr-only" htmlFor="weekly-goal">
+          Weekly goal
+        </label>
         <input
+          id="weekly-goal"
           type="number"
           min={1}
           value={draft}
           onChange={(e) =>
             setDraft(e.target.value === "" ? "" : Number(e.target.value))
           }
-          className="w-20 rounded border px-2 py-1 text-sm"
+          className="input w-20"
         />
         <button
           type="button"
           onClick={handleSave}
-          className="rounded border px-2 py-1 text-sm"
+          className="btn btn-ghost btn-sm"
         >
           Set goal
         </button>
