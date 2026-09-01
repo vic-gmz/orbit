@@ -20,7 +20,7 @@ export default function ToastHost() {
 
   return (
     <div
-      className="fixed bottom-6 right-6 z-50 flex max-w-sm items-center gap-2.5 rounded-2xl border border-sand bg-paper px-4 py-3 text-sm text-ink shadow-lift"
+      className="fixed bottom-20 right-4 z-50 flex max-w-[calc(100%-2rem)] items-center gap-2.5 rounded-2xl border border-sand bg-paper px-4 py-3 text-sm text-ink shadow-lift md:bottom-6 md:right-6 md:max-w-sm"
       role="status"
       style={{ animation: "toast-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both" }}
     >
