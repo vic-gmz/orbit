@@ -125,7 +125,7 @@ function ContactFormFields({
   };
 
   return (
-    <div className="stagger mx-auto flex max-w-xl flex-col gap-5">
+    <div className="stagger mx-auto flex w-full max-w-xl flex-col gap-5">
       <Link to="/contacts" className="link text-sm font-semibold">
         ← Back
       </Link>
@@ -134,7 +134,7 @@ function ContactFormFields({
       </h1>
 
       <form
-        className="card flex flex-col gap-3.5 p-6"
+        className="card flex flex-col gap-3.5 p-5 sm:p-6"
         onSubmit={handleSubmit}
       >
         <div className="flex items-center gap-4">

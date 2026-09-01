@@ -70,7 +70,7 @@ function CompanyFormFields({ initial }: { initial?: Company }) {
   };
 
   return (
-    <div className="stagger mx-auto flex max-w-xl flex-col gap-5">
+    <div className="stagger mx-auto flex w-full max-w-xl flex-col gap-5">
       <Link to="/companies" className="link text-sm font-semibold">
         ← Back
       </Link>
@@ -78,7 +78,7 @@ function CompanyFormFields({ initial }: { initial?: Company }) {
         {initial ? "Edit company" : "New company"}
       </h1>
 
-      <form className="card flex flex-col gap-3.5 p-6" onSubmit={handleSubmit}>
+      <form className="card flex flex-col gap-3.5 p-5 sm:p-6" onSubmit={handleSubmit}>
         <input
           placeholder="Name"
           value={name}

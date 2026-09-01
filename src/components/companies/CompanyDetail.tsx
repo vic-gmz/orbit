@@ -36,12 +36,12 @@ export default function CompanyDetail() {
   }
 
   return (
-    <div className="stagger mx-auto flex max-w-3xl flex-col gap-6">
+    <div className="stagger mx-auto flex w-full max-w-3xl flex-col gap-6">
       <Link to="/companies" className="link text-sm font-semibold">
         ← Back
       </Link>
 
-      <div className="card flex flex-wrap items-start justify-between gap-4 p-6">
+      <div className="card flex flex-col gap-4 p-6 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h1 className="font-display text-2xl font-semibold text-ink">
             {company.name}

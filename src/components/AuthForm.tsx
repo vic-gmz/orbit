@@ -29,7 +29,7 @@ export default function AuthForm() {
   };
 
   return (
-    <div className="card w-full px-8 py-9">
+    <div className="card w-full px-5 py-7 sm:px-8 sm:py-9">
       <div className="mb-7 flex flex-col items-center gap-3 text-center">
         <OrbitMark size={42} className="text-sun" />
         <div>

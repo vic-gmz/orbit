@@ -31,7 +31,7 @@ export default function ContactsPage() {
 
   return (
     <div className="stagger flex flex-col gap-5">
-      <div className="flex flex-wrap items-end justify-between gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="page-title">Contacts</h1>
           <p className="mt-1 text-sm text-muted">

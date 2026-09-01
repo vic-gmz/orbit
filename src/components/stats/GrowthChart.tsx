@@ -33,11 +33,11 @@ export default function GrowthChart({ data }: { data: GrowthMonth[] }) {
   }
 
   return (
-    <div className="h-64">
+    <div className="h-56 sm:h-64">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={points} margin={{ top: 8, right: 16, left: -8, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke={SAND} vertical={false} />
-          <XAxis dataKey="label" tick={{ fill: MUTED, fontSize: 12 }} axisLine={{ stroke: SAND }} tickLine={false} />
+          <XAxis dataKey="label" tick={{ fill: MUTED, fontSize: 11 }} axisLine={{ stroke: SAND }} tickLine={false} interval="preserveStartEnd" />
           <YAxis
             allowDecimals={false}
             tick={{ fill: MUTED, fontSize: 12 }}
